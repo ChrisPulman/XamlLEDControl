@@ -11,16 +11,43 @@
     Height="450"
     mc:Ignorable="d">
     <Grid>
-        <led:XamlLED
-            x:Name="led"
-            Width="100"
-            Height="100"
-            ActiveLed="0"
-            LedOrientation="Vertical" />
-        <Button
-            Width="100"
-            Height="100"
-            HorizontalAlignment="Left"
-            Click="Button_Click" />
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <led:XamlLED
+                x:Name="led1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ActiveLed="1"
+                FontSize="22"
+                LEDSize="50"
+                LedOrientation="Vertical"
+                Text="I Am An LED"
+                TextPosition="Left" />
+            <led:XamlLED
+                x:Name="led"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ActiveLed="1"
+                FontSize="22"
+                LEDSize="50"
+                LedOrientation="Vertical"
+                Text="I Am An LED Cluster"
+                TextPosition="Left" />
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <CheckBox
+                x:Name="chkBox"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="Use Boolean" />
+            <Button
+                Width="100"
+                Height="100"
+                Click="Button_Click" />
+        </StackPanel>
+
     </Grid>
 </Window>
