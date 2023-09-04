@@ -1,0 +1,62 @@
+<UserControl
+    x:Class="XamlLEDControl.Avalonia.TestApp.Views.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:led="https://github.com/ChrisPulman/XamlLEDControl.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:XamlLEDControl.Avalonia.TestApp.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MainViewModel"
+    mc:Ignorable="d">
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+    <Grid>
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <led:XamlLED
+                x:Name="led1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ActiveLed="1"
+                FontSize="22"
+                LEDSize="50"
+                LedOrientation="Vertical"
+                Text="I Am An LED"
+                TextPosition="Left" />
+            <led:XamlLED
+                x:Name="led"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ActiveLed="1"
+                FontSize="22"
+                LEDSize="50"
+                LedOrientation="Vertical"
+                Text="I Am An LED Cluster"
+                TextPosition="Left" />
+
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <CheckBox
+                x:Name="chkBox"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="Use Boolean" />
+            <Button
+                Width="100"
+                Height="100"
+                Click="Button_Click" />
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

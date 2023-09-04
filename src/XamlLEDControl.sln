@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlLEDControl.WPF", "XamlL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{B08EBB79-3D49-48A6-8BD0-707798A787ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CP.XamlLEDControl.WPF.TestApp", "CP.XamlLEDControl.WPF.TestApp\CP.XamlLEDControl.WPF.TestApp.csproj", "{72A2EF86-C288-4355-85C7-85F4AED43028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CP.XamlLEDControl.WPF.TestApp", "CP.XamlLEDControl.WPF.TestApp\CP.XamlLEDControl.WPF.TestApp.csproj", "{72A2EF86-C288-4355-85C7-85F4AED43028}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlLEDControl.Avalonia", "XamlLEDControl.Avalonia\XamlLEDControl.Avalonia.csproj", "{538955C2-217B-4C61-B623-74061A536BCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlLEDControl.Avalonia.TestApp", "XamlLEDControl.Avalonia.TestApp\XamlLEDControl.Avalonia.TestApp.csproj", "{94A8DE38-6B33-42A7-AEFF-592A850475E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlLEDControl.Avalonia.TestApp.Desktop", "XamlLEDControl.Avalonia.TestApp.Desktop\XamlLEDControl.Avalonia.TestApp.Desktop.csproj", "{F9137FD4-D75D-4077-BC87-0A85A69A654B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +31,18 @@ Global
 		{72A2EF86-C288-4355-85C7-85F4AED43028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A2EF86-C288-4355-85C7-85F4AED43028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A2EF86-C288-4355-85C7-85F4AED43028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538955C2-217B-4C61-B623-74061A536BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538955C2-217B-4C61-B623-74061A536BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538955C2-217B-4C61-B623-74061A536BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538955C2-217B-4C61-B623-74061A536BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A8DE38-6B33-42A7-AEFF-592A850475E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A8DE38-6B33-42A7-AEFF-592A850475E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A8DE38-6B33-42A7-AEFF-592A850475E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A8DE38-6B33-42A7-AEFF-592A850475E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9137FD4-D75D-4077-BC87-0A85A69A654B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9137FD4-D75D-4077-BC87-0A85A69A654B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9137FD4-D75D-4077-BC87-0A85A69A654B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9137FD4-D75D-4077-BC87-0A85A69A654B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
