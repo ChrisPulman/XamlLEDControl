@@ -14,7 +14,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>Compatability with Net 6 / 7 and netframework</PackageReleaseNotes>
-    <PackageTags>led;control;rx;wpf;net;netstandard</PackageTags>
+    <PackageTags>led;control;rx;wpf;avalonia;net;netstandard</PackageTags>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageProjectUrl>https://github.com/ChrisPulman/XamlLEDControl</PackageProjectUrl>
@@ -45,7 +45,7 @@
   <ItemGroup>
     <!--<Compile Update="**\*.cs" DependentUpon="I%(Filename).cs" />-->
     <PackageReference Include="stylecop.analyzers" Version="1.2.0-beta.507" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.4.0" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.5.0" PrivateAssets="All" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 </Project>
