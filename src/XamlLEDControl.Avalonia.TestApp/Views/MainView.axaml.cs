@@ -12,7 +12,6 @@ namespace XamlLEDControl.Avalonia.TestApp.Views;
 /// <summary>
 /// MainView.
 /// </summary>
-/// <seealso cref="Avalonia.Controls.UserControl" />
 public partial class MainView : UserControl
 {
     /// <summary>

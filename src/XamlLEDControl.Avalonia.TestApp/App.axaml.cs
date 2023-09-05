@@ -13,16 +13,12 @@ namespace XamlLEDControl.Avalonia.TestApp;
 /// <summary>
 /// App.
 /// </summary>
-/// <seealso cref="Avalonia.Application" />
 public partial class App : Application
 {
     /// <summary>
     /// Initializes the application by loading XAML etc.
     /// </summary>
-    public override void Initialize()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+    public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     /// <summary>
     /// Called when [framework initialization completed].

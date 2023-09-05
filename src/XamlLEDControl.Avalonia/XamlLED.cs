@@ -24,7 +24,6 @@ namespace CP.XamlLEDControl.Avalonia;
 /// <summary>
 /// XamlLED.
 /// </summary>
-/// <seealso cref="Avalonia.Controls.ContentControl" />
 public class XamlLED : ContentControl
 {
     /// <summary>
@@ -424,7 +423,11 @@ public class XamlLED : ContentControl
         },
     };
 
+#if NETSTANDARD2_0
+    private static void OpacityAnimation(Visual visual, double from, double to, TimeSpan timeSpan)
+#else
     private static void OpacityAnimation(Visual visual, double from, double to, in TimeSpan timeSpan)
+#endif
     {
         var tickTime = timeSpan.TotalMilliseconds / 100;
         IDisposable? subscription = default;

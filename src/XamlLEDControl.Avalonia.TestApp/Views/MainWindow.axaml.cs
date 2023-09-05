@@ -8,7 +8,6 @@ namespace XamlLEDControl.Avalonia.TestApp.Views;
 /// <summary>
 /// MainWindow.
 /// </summary>
-/// <seealso cref="Avalonia.Controls.Window" />
 public partial class MainWindow : Window
 {
     /// <summary>
