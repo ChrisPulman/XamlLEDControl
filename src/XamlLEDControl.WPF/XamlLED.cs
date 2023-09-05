@@ -394,11 +394,6 @@ public class XamlLED : ContentControl
         }
     }
 
-    /// <summary>
-    /// Property changed callback for the active LED index.
-    /// </summary>
-    /// <param name="d">The DependencyObject.</param>
-    /// <param name="e">The DependencyPropertyChangedEventArgs.</param>
     private static void ActiveLedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is XamlLED led && e.NewValue is int activeLed)
@@ -422,11 +417,6 @@ public class XamlLED : ContentControl
         RadiusY = 0.5d
     };
 
-    /// <summary>
-    /// Load led into the panel.
-    /// </summary>
-    /// <param name="sender">Object sender.</param>
-    /// <param name="e">Routed event atguments.</param>
     private void LoadLeds(object sender, RoutedEventArgs e)
     {
         _LedText.Text = Text;
@@ -489,9 +479,6 @@ public class XamlLED : ContentControl
         }
     }
 
-    /// <summary>
-    /// Switch on the active led.
-    /// </summary>
     private void On()
     {
         if (ActiveLed == -1 && LedOffColors.Count == LedOnColors.Count)
@@ -521,9 +508,6 @@ public class XamlLED : ContentControl
         }
     }
 
-    /// <summary>
-    /// Switch off all but the active led.
-    /// </summary>
     private void Off()
     {
         if (ActiveLed == -1 && LedOffColors.Count == LedOnColors.Count)
