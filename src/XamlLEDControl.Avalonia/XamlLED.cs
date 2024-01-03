@@ -415,12 +415,12 @@ public class XamlLED : ContentControl
         GradientOrigin = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
         Center = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
         Radius = 0.5d,
-        GradientStops = new GradientStops
-        {
+        GradientStops =
+        [
             new GradientStop(Color.FromArgb(150, color.R, color.G, color.B), 0.1d),
             new GradientStop(Color.FromArgb(200, color.R, color.G, color.B), 0.4d),
             new GradientStop(Color.FromArgb(255, color.R, color.G, color.B), 1.0d),
-        },
+        ],
     };
 
 #if NETSTANDARD2_0
@@ -486,12 +486,12 @@ public class XamlLED : ContentControl
                 GradientOrigin = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
                 Center = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
                 Radius = 0.5d,
-                GradientStops = new GradientStops
-                {
+                GradientStops =
+                [
                     new GradientStop(Color.FromArgb(255, 211, 211, 211), 0.8d),
                     new GradientStop(Color.FromArgb(255, 169, 169, 169), 0.9d),
                     new GradientStop(Color.FromArgb(255, 150, 150, 150), 0.95d),
-                }
+                ]
             };
 
             var ellipse = new Ellipse

@@ -13,7 +13,7 @@
     <Nullable>enable</Nullable>
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Compatability with Net 6 / 7 and netframework</PackageReleaseNotes>
+    <PackageReleaseNotes>Compatability with Net 6/7/8 and netframework</PackageReleaseNotes>
     <PackageTags>led;control;rx;wpf;avalonia;net;netstandard</PackageTags>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
