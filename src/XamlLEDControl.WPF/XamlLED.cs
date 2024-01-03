@@ -404,12 +404,12 @@ public class XamlLED : ContentControl
         }
     }
 
-    private static RadialGradientBrush GetLedColor(Color color) => new(new GradientStopCollection
-            {
+    private static RadialGradientBrush GetLedColor(Color color) => new(
+            [
                 new GradientStop(Color.FromArgb(150, color.R, color.G, color.B), 0.1d),
                 new GradientStop(Color.FromArgb(200, color.R, color.G, color.B), 0.4d),
                 new GradientStop(Color.FromArgb(255, color.R, color.G, color.B), 1.0d),
-            })
+            ])
     {
         GradientOrigin = new Point(0.5d, 0.5d),
         Center = new Point(0.5d, 0.5d),
@@ -431,12 +431,12 @@ public class XamlLED : ContentControl
         foreach (var color in LedOnColors)
         {
             // Border for led
-            var srgb = new RadialGradientBrush(new GradientStopCollection
-            {
+            var srgb = new RadialGradientBrush(
+            [
                 new GradientStop(Color.FromArgb(255, 211, 211, 211), 0.8d),
                 new GradientStop(Color.FromArgb(255, 169, 169, 169), 0.9d),
                 new GradientStop(Color.FromArgb(255, 150, 150, 150), 0.95d),
-            })
+            ])
             {
                 GradientOrigin = new Point(0.5d, 0.5d),
                 Center = new Point(0.5d, 0.5d),
