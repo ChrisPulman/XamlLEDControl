@@ -48,7 +48,7 @@ public class XamlLED : ContentControl
     public static readonly StyledProperty<List<Color>> LedOnColorsProperty =
         AvaloniaProperty.Register<XamlLED, List<Color>>(
             nameof(LedOnColors),
-            defaultValue: new List<Color>(),
+            defaultValue: new List<Color>([Colors.Green]),
             defaultBindingMode: BindingMode.TwoWay);
 
     /// <summary>
@@ -57,7 +57,7 @@ public class XamlLED : ContentControl
     public static readonly StyledProperty<List<Color>> LedOffColorsProperty =
         AvaloniaProperty.Register<XamlLED, List<Color>>(
             nameof(LedOffColors),
-            defaultValue: new List<Color>(),
+            defaultValue: new List<Color>([Colors.Red]),
             defaultBindingMode: BindingMode.TwoWay);
 
     /// <summary>
@@ -101,7 +101,7 @@ public class XamlLED : ContentControl
             nameof(LEDSize),
             defaultValue: 40D);
 
-    private readonly List<Ellipse> _leds = new();
+    private readonly List<Ellipse> _leds = [];
     private readonly TextBlock _ledText = new();
     private readonly StackPanel _ledStackPanel = new();
     private readonly Grid _layoutRoot = new();

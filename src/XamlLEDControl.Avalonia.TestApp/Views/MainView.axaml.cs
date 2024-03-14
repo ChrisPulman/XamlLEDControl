@@ -20,10 +20,8 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        led.LedOnColors = new List<Color>(new[] { Colors.Green, Colors.Red, Colors.Green, Colors.Red });
-        led.LedOffColors = new List<Color>(new[] { Colors.DarkRed, Colors.DarkGreen, Colors.DarkRed, Colors.DarkGreen });
-        led1.LedOnColors = new List<Color>(new[] { Colors.Green });
-        led1.LedOffColors = new List<Color>(new[] { Colors.Red });
+        led.LedOnColors = new List<Color>([Colors.Green, Colors.Red, Colors.Green, Colors.Red]);
+        led.LedOffColors = new List<Color>([Colors.DarkRed, Colors.DarkGreen, Colors.DarkRed, Colors.DarkGreen]);
     }
 
     private void Button_Click(object? sender, RoutedEventArgs e)

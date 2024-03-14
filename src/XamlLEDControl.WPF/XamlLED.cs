@@ -52,7 +52,7 @@ public class XamlLED : ContentControl
             new FrameworkPropertyMetadata
             {
                 BindsTwoWayByDefault = true,
-                DefaultValue = new List<Color>(),
+                DefaultValue = new List<Color>([Colors.Green]),
                 PropertyChangedCallback = LedOnColorsChanged,
             });
 
@@ -67,7 +67,7 @@ public class XamlLED : ContentControl
             new FrameworkPropertyMetadata
             {
                 BindsTwoWayByDefault = true,
-                DefaultValue = new List<Color>(),
+                DefaultValue = new List<Color>([Colors.Red]),
                 PropertyChangedCallback = LedOffColorsChanged,
             });
 
@@ -126,7 +126,7 @@ public class XamlLED : ContentControl
             typeof(XamlLED),
             new PropertyMetadata(40d, LedSizeChange));
 
-    private readonly List<Ellipse> _leds = new();
+    private readonly List<Ellipse> _leds = [];
     private readonly TextBlock _LedText = new();
     private readonly StackPanel _ledStackPanel = new();
     private readonly Grid _layoutRoot = new();
