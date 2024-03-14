@@ -1,53 +1,14 @@
-﻿<Window
+﻿<ui:FluentNavigationWindow
     x:Class="CP.XamlLEDControl.WPF.TestApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:led="https://github.com/ChrisPulman/XamlLEDControl.WPF"
-    xmlns:local="clr-namespace:CP.XamlLEDControl.WPF.TestApp"
+    xmlns:local="clr-namespace:CP.XamlLEDControl.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="https://github.com/ChrisPulman/CrissCross.ui"
+    x:Name="mainWindow"
     Title="MainWindow"
     Width="800"
     Height="450"
-    mc:Ignorable="d">
-    <Grid>
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <led:XamlLED
-                x:Name="led1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                ActiveLed="1"
-                FontSize="22"
-                LEDSize="50"
-                LedOrientation="Vertical"
-                Text="I Am An LED"
-                TextPosition="Left" />
-            <led:XamlLED
-                x:Name="led"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                ActiveLed="1"
-                FontSize="22"
-                LEDSize="50"
-                LedOrientation="Vertical"
-                Text="I Am An LED Cluster"
-                TextPosition="Left" />
-        </StackPanel>
-
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <CheckBox
-                x:Name="chkBox"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Content="Use Boolean" />
-            <Button
-                Width="100"
-                Height="100"
-                Click="Button_Click" />
-        </StackPanel>
-
-    </Grid>
-</Window>
+    x:TypeArguments="local:MainWindowViewModel"
+    mc:Ignorable="d" />
