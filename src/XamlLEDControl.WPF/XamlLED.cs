@@ -126,6 +126,34 @@ public class XamlLED : ContentControl
             typeof(XamlLED),
             new PropertyMetadata(40d, LedSizeChange));
 
+    /// <summary>
+    /// The default on color property.
+    /// </summary>
+    public static readonly DependencyProperty DefaultOnColorProperty =
+        DependencyProperty.Register(
+            nameof(DefaultOnColor),
+            typeof(Color),
+            typeof(XamlLED),
+            new FrameworkPropertyMetadata
+            {
+                DefaultValue = Colors.Green,
+                PropertyChangedCallback = LedOnColorsChanged,
+            });
+
+    /// <summary>
+    /// The default off color property.
+    /// </summary>
+    public static readonly DependencyProperty DefaultOffColorProperty =
+        DependencyProperty.Register(
+            nameof(DefaultOffColor),
+            typeof(Color),
+            typeof(XamlLED),
+            new FrameworkPropertyMetadata
+            {
+                DefaultValue = Colors.Red,
+                PropertyChangedCallback = LedOffColorsChanged,
+            });
+
     private readonly List<Ellipse> _leds = [];
     private readonly TextBlock _LedText = new();
     private readonly StackPanel _ledStackPanel = new();
@@ -213,6 +241,22 @@ public class XamlLED : ContentControl
     }
 
     /// <summary>
+    /// Gets or sets the default color of the on.
+    /// </summary>
+    /// <value>
+    /// The default color of the on.
+    /// </value>
+    public Color DefaultOnColor
+    {
+        get => (Color)GetValue(DefaultOnColorProperty);
+        set
+        {
+            SetValue(DefaultOnColorProperty, value);
+            LedOnColors = new List<Color>([value]);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the leds off.
     /// </summary>
     /// <value>
@@ -224,6 +268,22 @@ public class XamlLED : ContentControl
     {
         get => (List<Color>)GetValue(LedOffColorsProperty);
         set => SetValue(LedOffColorsProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the default color of the off.
+    /// </summary>
+    /// <value>
+    /// The default color of the off.
+    /// </value>
+    public Color DefaultOffColor
+    {
+        get => (Color)GetValue(DefaultOffColorProperty);
+        set
+        {
+            SetValue(DefaultOffColorProperty, value);
+            LedOffColors = new List<Color>([value]);
+        }
     }
 
     /// <summary>
@@ -378,19 +438,37 @@ public class XamlLED : ContentControl
 
     private static void LedOnColorsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is XamlLED led && e.NewValue is List<Color> colors)
+        if (d is XamlLED led)
         {
-            led.LedOnColors = colors;
-            led.LoadLeds(d, null!);
+            if (e.NewValue is List<Color> colors)
+            {
+                led.LedOnColors = colors;
+                led.LoadLeds(d, null!);
+            }
+
+            if (e.NewValue is Color color)
+            {
+                led.LedOnColors = [color];
+                led.LoadLeds(d, null!);
+            }
         }
     }
 
     private static void LedOffColorsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is XamlLED led && e.NewValue is List<Color> colors)
+        if (d is XamlLED led)
         {
-            led.LedOffColors = colors;
-            led.LoadLeds(d, null!);
+            if (e.NewValue is List<Color> colors)
+            {
+                led.LedOffColors = colors;
+                led.LoadLeds(d, null!);
+            }
+
+            if (e.NewValue is Color color)
+            {
+                led.LedOffColors = [color];
+                led.LoadLeds(d, null!);
+            }
         }
     }
 

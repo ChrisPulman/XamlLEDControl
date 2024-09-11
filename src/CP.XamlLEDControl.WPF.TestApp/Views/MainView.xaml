@@ -22,6 +22,7 @@
                 x:Name="led1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                DefaultOnColor="GreenYellow"
                 FontSize="22"
                 LEDSize="50"
                 LedOrientation="Vertical"
