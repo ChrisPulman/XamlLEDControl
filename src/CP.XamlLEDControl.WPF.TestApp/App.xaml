@@ -2,7 +2,7 @@
     x:Class="CP.XamlLEDControl.WPF.TestApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:rxNav="https://github.com/ChrisPulman/CrissCross.ui"
+    xmlns:rxNav="https://github.com/reactivemarbles/CrissCross.ui"
     StartupUri="MainWindow.xaml">
 
     <Application.Resources>
