@@ -26,6 +26,7 @@
                 x:Name="led1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                DefaultOnColor="Blue"
                 ActiveLed="1"
                 FontSize="22"
                 LEDSize="50"

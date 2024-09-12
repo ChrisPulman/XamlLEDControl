@@ -61,6 +61,24 @@ public class XamlLED : ContentControl
             defaultBindingMode: BindingMode.TwoWay);
 
     /// <summary>
+    /// The default on color property.
+    /// </summary>
+    public static readonly StyledProperty<Color> DefaultOnColorProperty =
+        AvaloniaProperty.Register<XamlLED, Color>(
+            nameof(DefaultOnColor),
+            defaultValue: Colors.Green,
+            defaultBindingMode: BindingMode.TwoWay);
+
+    /// <summary>
+    /// The default off color property.
+    /// </summary>
+    public static readonly StyledProperty<Color> DefaultOffColorProperty =
+        AvaloniaProperty.Register<XamlLED, Color>(
+            nameof(DefaultOffColor),
+            defaultValue: Colors.Red,
+            defaultBindingMode: BindingMode.TwoWay);
+
+    /// <summary>
     /// The off opacity property.
     /// </summary>
     public static readonly StyledProperty<double> OffOpacityProperty =
@@ -112,7 +130,9 @@ public class XamlLED : ContentControl
         TextProperty.Changed.Subscribe(OnTextChanged);
         IsTrueProperty.Changed.Subscribe(OnIsTrueChanged);
         LedOnColorsProperty.Changed.Subscribe(OnLedOnColorsChanged);
+        DefaultOnColorProperty.Changed.Subscribe(OnDefaultLedOnColorChanged);
         LedOffColorsProperty.Changed.Subscribe(OnLedOffColorsChanged);
+        DefaultOffColorProperty.Changed.Subscribe(OnDefaultLedOffColorChanged);
         ActiveLedProperty.Changed.Subscribe(OnActiveLedChanged);
         TextPositionProperty.Changed.Subscribe(OnTextPositionChanged);
     }
@@ -161,6 +181,28 @@ public class XamlLED : ContentControl
     {
         get => GetValue(LedOnColorsProperty);
         set => SetValue(LedOnColorsProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets colors of the leds in on mode. Amount of colors equal the amount of leds displayed.
+    /// </summary>
+    [Description("Gets or sets colors of the led in On mode.")]
+    [Category("Layout")]
+    public Color DefaultOnColor
+    {
+        get => GetValue(DefaultOnColorProperty);
+        set => SetValue(DefaultOnColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets colors of the leds in off mode. Amount of colors equal the amount of leds displayed.
+    /// </summary>
+    [Description("Gets or sets colors of the led in On mode.")]
+    [Category("Layout")]
+    public Color DefaultOffColor
+    {
+        get => GetValue(DefaultOffColorProperty);
+        set => SetValue(DefaultOffColorProperty, value);
     }
 
     /// <summary>
@@ -396,6 +438,24 @@ public class XamlLED : ContentControl
         if (args.Sender is XamlLED led)
         {
             led.LedOffColors = args.NewValue.Value;
+            led.LoadLeds(led, null!);
+        }
+    }
+
+    private static void OnDefaultLedOnColorChanged(AvaloniaPropertyChangedEventArgs<Color> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led.LedOnColors = [args.NewValue.Value];
+            led.LoadLeds(led, null!);
+        }
+    }
+
+    private static void OnDefaultLedOffColorChanged(AvaloniaPropertyChangedEventArgs<Color> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led.LedOffColors = [args.NewValue.Value];
             led.LoadLeds(led, null!);
         }
     }
