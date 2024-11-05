@@ -154,7 +154,17 @@ public class XamlLED : ContentControl
                 PropertyChangedCallback = LedOffColorsChanged,
             });
 
-    private readonly List<Ellipse> _leds = [];
+    /// <summary>
+    /// The is square property.
+    /// </summary>
+    public static readonly DependencyProperty IsSquareProperty =
+        DependencyProperty.Register(
+            nameof(IsSquare),
+            typeof(bool),
+            typeof(XamlLED),
+            new PropertyMetadata(false));
+
+    private readonly List<Shape> _leds = [];
     private readonly TextBlock _LedText = new();
     private readonly StackPanel _ledStackPanel = new();
     private readonly Grid _layoutRoot = new();
@@ -238,6 +248,20 @@ public class XamlLED : ContentControl
     {
         get => (List<Color>)GetValue(LedOnColorsProperty);
         set => SetValue(LedOnColorsProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is square.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is square; otherwise, <c>false</c>.
+    /// </value>
+    [Description("Gets or sets a value indicating whether the LED is square or round. Default is false.")]
+    [Category("Layout")]
+    public bool IsSquare
+    {
+        get => (bool)GetValue(IsSquareProperty);
+        set => SetValue(IsSquareProperty, value);
     }
 
     /// <summary>
@@ -522,21 +546,41 @@ public class XamlLED : ContentControl
                 RadiusY = 0.5d
             };
 
-            var ellipse = new Ellipse
+            if (IsSquare)
             {
-                Name = $"ellipses{_leds.Count}",
-                Height = LEDSize > 4 ? LEDSize - 4 : LEDSize,
-                Width = LEDSize > 4 ? LEDSize - 4 : LEDSize,
-                Margin = new Thickness(2),
-                Style = null,
-                StrokeThickness = LEDSize / 20.0,
-                Fill = GetLedColor(color),
-                Stroke = srgb
-            };
-            ellipse.Fill.Opacity = OffOpacity;
+                var rectangle = new Rectangle
+                {
+                    Name = $"rectangles{_leds.Count}",
+                    Height = LEDSize,
+                    Width = LEDSize,
+                    Margin = new Thickness(2),
+                    Fill = GetLedColor(color),
+                    Stroke = srgb,
+                    StrokeThickness = LEDSize / 20.0
+                };
+                rectangle.Fill.Opacity = OffOpacity;
 
-            _ledStackPanel.Children.Add(ellipse);
-            _leds.Add(ellipse);
+                _ledStackPanel.Children.Add(rectangle);
+                _leds.Add(rectangle);
+            }
+            else
+            {
+                var ellipse = new Ellipse
+                {
+                    Name = $"ellipses{_leds.Count}",
+                    Height = LEDSize > 4 ? LEDSize - 4 : LEDSize,
+                    Width = LEDSize > 4 ? LEDSize - 4 : LEDSize,
+                    Margin = new Thickness(2),
+                    Style = null,
+                    StrokeThickness = LEDSize / 20.0,
+                    Fill = GetLedColor(color),
+                    Stroke = srgb
+                };
+                ellipse.Fill.Opacity = OffOpacity;
+
+                _ledStackPanel.Children.Add(ellipse);
+                _leds.Add(ellipse);
+            }
         }
 
         if (ActiveLed == -1 && LedOnColors.Count == LedOffColors.Count)

@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using CrissCross;
 using ReactiveUI;
 
@@ -25,23 +26,32 @@ public class MainViewModel : RxObject
     /// Initializes a new instance of the <see cref="MainViewModel"/> class.
     /// </summary>
     public MainViewModel() =>
-        this.BuildComplete(() => ToggleCommand = ReactiveCommand.Create(() =>
-                {
-                    IsTrue = !IsTrue;
-                    if (IsChecked)
-                    {
-                        ClusterIsTrue = !ClusterIsTrue;
-                    }
-                    else
-                    {
-                        ClusterIsTrue = false;
-                        ActiveLed++;
-                        if (ActiveLed > 4)
-                        {
-                            ActiveLed = 0;
-                        }
-                    }
-                }));
+        this.BuildComplete(() =>
+        {
+            ToggleCommand = ReactiveCommand.Create(() =>
+                            {
+                                IsTrue = !IsTrue;
+                                if (IsChecked)
+                                {
+                                    ClusterIsTrue = !ClusterIsTrue;
+                                }
+                                else
+                                {
+                                    ClusterIsTrue = false;
+                                    ActiveLed++;
+                                    if (ActiveLed > 4)
+                                    {
+                                        ActiveLed = 0;
+                                    }
+                                }
+                            });
+            Observable.Interval(TimeSpan.FromSeconds(1))
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe(_ =>
+            {
+                IsTrue = !IsTrue;
+            }).DisposeWith(Disposables);
+        });
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is true.
