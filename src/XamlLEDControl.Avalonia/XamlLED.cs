@@ -495,7 +495,8 @@ public class XamlLED : ContentControl
     {
         GradientOrigin = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
         Center = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
-        Radius = 0.5d,
+        RadiusX = new RelativeScalar(0.5d, RelativeUnit.Relative),
+        RadiusY = new RelativeScalar(0.5d, RelativeUnit.Relative),
         GradientStops =
         [
             new GradientStop(Color.FromArgb(150, color.R, color.G, color.B), 0.1d),
@@ -566,7 +567,8 @@ public class XamlLED : ContentControl
             {
                 GradientOrigin = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
                 Center = new RelativePoint(0.5d, 0.5d, RelativeUnit.Absolute),
-                Radius = 0.5d,
+                RadiusX = new RelativeScalar(0.5d, RelativeUnit.Relative),
+                RadiusY = new RelativeScalar(0.5d, RelativeUnit.Relative),
                 GradientStops =
                 [
                     new GradientStop(Color.FromArgb(255, 211, 211, 211), 0.8d),
