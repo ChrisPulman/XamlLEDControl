@@ -24,6 +24,7 @@
                 VerticalAlignment="Center"
                 DefaultOnColor="GreenYellow"
                 FontSize="22"
+                IsSquare="True"
                 LEDSize="50"
                 LedOrientation="Vertical"
                 Text="I Am An LED"
