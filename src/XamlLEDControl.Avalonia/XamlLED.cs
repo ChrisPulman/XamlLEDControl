@@ -128,6 +128,22 @@ public class XamlLED : ContentControl
             nameof(IsSquare),
             defaultValue: false);
 
+    /// <summary>
+    /// Gets or sets animation duration in seconds for fade on/off of cluster LEDs.
+    /// </summary>
+    public static readonly StyledProperty<double> AnimationDurationSecondsProperty =
+        AvaloniaProperty.Register<XamlLED, double>(
+            nameof(AnimationDurationSeconds),
+            defaultValue: 1d);
+
+    /// <summary>
+    /// Gets or sets spacing (margin) around each LED element.
+    /// </summary>
+    public static readonly StyledProperty<double> LedSpacingProperty =
+        AvaloniaProperty.Register<XamlLED, double>(
+            nameof(LedSpacing),
+            defaultValue: 2d);
+
     private readonly List<Shape> _leds = [];
     private readonly TextBlock _ledText = new();
     private readonly StackPanel _ledStackPanel = new();
@@ -144,6 +160,14 @@ public class XamlLED : ContentControl
         DefaultOffColorProperty.Changed.Subscribe(OnDefaultLedOffColorChanged);
         ActiveLedProperty.Changed.Subscribe(OnActiveLedChanged);
         TextPositionProperty.Changed.Subscribe(OnTextPositionChanged);
+        LedOrientationProperty.Changed.Subscribe(OnOrientationChanged);
+        IsSquareProperty.Changed.Subscribe(OnIsSquareChanged);
+        OffOpacityProperty.Changed.Subscribe(OnOffOpacityChanged);
+        LedSpacingProperty.Changed.Subscribe(OnLedSpacingChanged);
+        ForegroundProperty.Changed.Subscribe(OnForegroundChanged);
+        FontSizeProperty.Changed.Subscribe(OnFontSizeChanged);
+        FontFamilyProperty.Changed.Subscribe(OnFontFamilyChanged);
+        FontWeightProperty.Changed.Subscribe(OnFontWeightChanged);
     }
 
     /// <summary>
@@ -241,14 +265,25 @@ public class XamlLED : ContentControl
     }
 
     /// <summary>
-    /// Gets or sets opacity of led in off mode.
+    /// Gets or sets the spacing (margin) around each LED.
     /// </summary>
-    [Description("Gets or sets opacity of leds in off mode, only used in multiple Led mode.")]
-    [Category("Appearance")]
-    public double OffOpacity
+    [Description("Gets or sets the spacing (margin) around each LED.")]
+    [Category("Layout")]
+    public double LedSpacing
     {
-        get => GetValue(OffOpacityProperty);
-        set => SetValue(OffOpacityProperty, value);
+        get => GetValue(LedSpacingProperty);
+        set => SetValue(LedSpacingProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets animation duration for cluster LED fade animations in seconds.
+    /// </summary>
+    [Description("Gets or sets animation duration for cluster LED fade animations in seconds.")]
+    [Category("Appearance")]
+    public double AnimationDurationSeconds
+    {
+        get => GetValue(AnimationDurationSecondsProperty);
+        set => SetValue(AnimationDurationSecondsProperty, value);
     }
 
     /// <summary>
@@ -290,9 +325,20 @@ public class XamlLED : ContentControl
     }
 
     /// <summary>
-    /// Invoked just before the <see cref="E:Avalonia.Controls.Control.Loaded" /> event.
+    /// Gets or sets opacity of LED in off mode for cluster mode.
     /// </summary>
-    /// <param name="e">The event args.</param>
+    [Description("Gets or sets opacity of LEDs in off mode, only used in multiple LED mode.")]
+    [Category("Appearance")]
+    public double OffOpacity
+    {
+        get => GetValue(OffOpacityProperty);
+        set => SetValue(OffOpacityProperty, value);
+    }
+
+    /// <summary>
+    /// Called when the LED control is loaded and lays out its internal content.
+    /// </summary>
+    /// <param name="e">The loaded event args.</param>
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
@@ -333,6 +379,7 @@ public class XamlLED : ContentControl
             _ledText.Foreground = Foreground;
             _ledText.FontWeight = FontWeight;
             _ledText.FontSize = FontSize;
+            _ledText.FontFamily = FontFamily;
             _ledText.Margin = new Thickness(5);
 
             Grid.SetRow(_ledText, 1);
@@ -349,7 +396,6 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.LEDSize = args.NewValue.Value;
             led.LoadLeds(led, null!);
         }
     }
@@ -358,8 +404,47 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.Text = args.NewValue.Value;
             led._ledText!.Text = args.NewValue.Value;
+        }
+    }
+
+    private static void OnForegroundChanged(AvaloniaPropertyChangedEventArgs<IBrush?> args)
+    {
+        if (args.Sender is XamlLED led && args.NewValue.HasValue)
+        {
+            led._ledText.Foreground = args.NewValue.Value;
+        }
+    }
+
+    private static void OnFontSizeChanged(AvaloniaPropertyChangedEventArgs<double> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led._ledText.FontSize = args.NewValue.Value;
+        }
+    }
+
+    private static void OnFontFamilyChanged(AvaloniaPropertyChangedEventArgs<FontFamily> args)
+    {
+        if (args.Sender is XamlLED led && args.NewValue.HasValue)
+        {
+            led._ledText.FontFamily = args.NewValue.Value;
+        }
+    }
+
+    private static void OnFontWeightChanged(AvaloniaPropertyChangedEventArgs<FontWeight> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led._ledText.FontWeight = args.NewValue.Value;
+        }
+    }
+
+    private static void OnOrientationChanged(AvaloniaPropertyChangedEventArgs<Orientation> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led._ledStackPanel.Orientation = args.NewValue.Value;
         }
     }
 
@@ -367,7 +452,6 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.TextPosition = args.NewValue.Value;
             switch (args.NewValue.Value)
             {
                 case TextPosition.Top:
@@ -382,7 +466,7 @@ public class XamlLED : ContentControl
                     break;
 
                 case TextPosition.Bottom:
-                    Grid.SetRow(led._ledText, 3);
+                    Grid.SetRow(led._ledText, 2);
                     Grid.SetColumn(led._ledText, 1);
                     Grid.SetColumnSpan(led._ledText, 1);
                     Grid.SetRow(led._ledStackPanel, 1);
@@ -405,7 +489,7 @@ public class XamlLED : ContentControl
 
                 case TextPosition.Right:
                     Grid.SetRow(led._ledText, 1);
-                    Grid.SetColumn(led._ledText, 3);
+                    Grid.SetColumn(led._ledText, 2);
                     Grid.SetColumnSpan(led._ledText, 1);
                     Grid.SetRow(led._ledStackPanel, 1);
                     Grid.SetColumn(led._ledStackPanel, 1);
@@ -433,7 +517,6 @@ public class XamlLED : ContentControl
         if (args.Sender is XamlLED led && led.LedOnColors.Count == led.LedOffColors.Count)
         {
             led.ActiveLed = -1;
-            led.IsTrue = args.NewValue.Value;
             if (args.NewValue.Value)
             {
                 led.On();
@@ -449,7 +532,6 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.LedOnColors = args.NewValue.Value;
             led.LoadLeds(led, null!);
         }
     }
@@ -458,7 +540,6 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.LedOffColors = args.NewValue.Value;
             led.LoadLeds(led, null!);
         }
     }
@@ -485,9 +566,50 @@ public class XamlLED : ContentControl
     {
         if (args.Sender is XamlLED led)
         {
-            led.ActiveLed = args.NewValue.Value;
             led.Off();
             led.On();
+        }
+    }
+
+    private static void OnIsSquareChanged(AvaloniaPropertyChangedEventArgs<bool> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            led.LoadLeds(led, null!);
+        }
+    }
+
+    private static void OnOffOpacityChanged(AvaloniaPropertyChangedEventArgs<double> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            if (led.ActiveLed > -1)
+            {
+                led.Off();
+                led.On();
+            }
+            else if (led.LedOnColors.Count == led.LedOffColors.Count)
+            {
+                if (led.IsTrue)
+                {
+                    led.On();
+                }
+                else
+                {
+                    led.Off();
+                }
+            }
+        }
+    }
+
+    private static void OnLedSpacingChanged(AvaloniaPropertyChangedEventArgs<double> args)
+    {
+        if (args.Sender is XamlLED led)
+        {
+            foreach (var sh in led._leds)
+            {
+                sh.Margin = new Thickness(args.NewValue.Value);
+            }
         }
     }
 
@@ -555,6 +677,7 @@ public class XamlLED : ContentControl
         _ledText.Foreground = Foreground;
         _ledText.FontWeight = FontWeight;
         _ledText.FontSize = FontSize;
+        _ledText.FontFamily = FontFamily;
 
         _ledStackPanel.Orientation = LedOrientation;
         _ledStackPanel.Children.Clear();
@@ -584,11 +707,13 @@ public class XamlLED : ContentControl
                     Name = $"leds{_leds.Count}",
                     Height = LEDSize,
                     Width = LEDSize,
-                    Margin = new Thickness(2),
+                    Margin = new Thickness(LedSpacing),
                     StrokeThickness = LEDSize / 20.0,
                     Fill = GetLedColor(color),
                     Stroke = srgb,
-                    Opacity = OffOpacity
+                    Opacity = OffOpacity,
+                    RadiusX = LEDSize / 10.0,
+                    RadiusY = LEDSize / 10.0
                 };
 
                 _ledStackPanel.Children.Add(rectangle);
@@ -601,7 +726,7 @@ public class XamlLED : ContentControl
                     Name = $"ellipses{_leds.Count}",
                     Height = LEDSize > 4 ? LEDSize - 4 : LEDSize,
                     Width = LEDSize > 4 ? LEDSize - 4 : LEDSize,
-                    Margin = new Thickness(2),
+                    Margin = new Thickness(LedSpacing),
                     StrokeThickness = LEDSize / 20.0,
                     Fill = GetLedColor(color),
                     Stroke = srgb,
@@ -647,7 +772,7 @@ public class XamlLED : ContentControl
             {
                 if ((ActiveLed - 1 == i) && (_leds[i].Opacity < 1.0))
                 {
-                    OpacityAnimation(_leds[i], OffOpacity, 1d, TimeSpan.FromSeconds(1));
+                    OpacityAnimation(_leds[i], OffOpacity, 1d, TimeSpan.FromSeconds(AnimationDurationSeconds));
                 }
             }
         }
@@ -669,7 +794,7 @@ public class XamlLED : ContentControl
             {
                 if ((ActiveLed - 1 != i) && (_leds[i].Opacity > OffOpacity))
                 {
-                    OpacityAnimation(_leds[i], 1d, OffOpacity, TimeSpan.FromSeconds(1));
+                    OpacityAnimation(_leds[i], 1d, OffOpacity, TimeSpan.FromSeconds(AnimationDurationSeconds));
                 }
             }
         }
