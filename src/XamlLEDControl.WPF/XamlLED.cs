@@ -165,14 +165,14 @@ public class XamlLED : ContentControl
             new PropertyMetadata(false, IsSquareChanged));
 
     /// <summary>
-    /// Animation duration in seconds for fade on/off of cluster LEDs.
+    /// Animation duration in seconds for fade on/off of cluster LEDs. Default is 0.1 seconds.
     /// </summary>
     public static readonly DependencyProperty AnimationDurationSecondsProperty =
         DependencyProperty.Register(
             nameof(AnimationDurationSeconds),
             typeof(double),
             typeof(XamlLED),
-            new PropertyMetadata(1.0));
+            new PropertyMetadata(0.1));
 
     /// <summary>
     /// Spacing (margin) around each LED element.
@@ -355,9 +355,9 @@ public class XamlLED : ContentControl
     }
 
     /// <summary>
-    /// Gets or sets the animation duration for cluster LED fade animations in seconds.
+    /// Gets or sets the animation duration for cluster LED fade animations in seconds. Default is 0.1 seconds.
     /// </summary>
-    [Description("Gets or sets animation duration for cluster LED fade animations in seconds.")]
+    [Description("Gets or sets animation duration for cluster LED fade animations in seconds. Default is 0.1 seconds.")]
     [Category("Appearance")]
     public double AnimationDurationSeconds
     {

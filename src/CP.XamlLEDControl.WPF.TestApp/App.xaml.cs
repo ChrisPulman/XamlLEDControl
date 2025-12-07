@@ -3,12 +3,9 @@
 
 using System.Windows;
 
-namespace CP.XamlLEDControl.WPF.TestApp
-{
-    /// <summary>
-    /// Interaction logic for App.xaml.
-    /// </summary>
-    public partial class App : Application
-    {
-    }
-}
+namespace CP.XamlLEDControl.WPF.TestApp;
+
+/// <summary>
+/// Interaction logic for App.xaml.
+/// </summary>
+public partial class App : Application;

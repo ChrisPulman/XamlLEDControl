@@ -15,7 +15,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Metadata;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 [assembly: XmlnsDefinition("https://github.com/ChrisPulman/XamlLEDControl.Avalonia", "CP.XamlLEDControl.Avalonia")]
 [assembly: XmlnsPrefix("https://github.com/ChrisPulman/XamlLEDControl.Avalonia", "led")]
@@ -134,7 +134,7 @@ public class XamlLED : ContentControl
     public static readonly StyledProperty<double> AnimationDurationSecondsProperty =
         AvaloniaProperty.Register<XamlLED, double>(
             nameof(AnimationDurationSeconds),
-            defaultValue: 1d);
+            defaultValue: 0.1d);
 
     /// <summary>
     /// Gets or sets spacing (margin) around each LED element.
