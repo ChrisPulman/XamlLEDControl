@@ -5,24 +5,20 @@ using CrissCross;
 using CrissCross.WPF.UI.Appearance;
 using ReactiveUI;
 
-namespace CP.XamlLEDControl.WPF.TestApp
+namespace CP.XamlLEDControl.WPF.TestApp;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml.
+/// </summary>
+public partial class MainWindow
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml.
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
-    public partial class MainWindow
+    public MainWindow()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindow"/> class.
-        /// </summary>
-        public MainWindow()
-        {
-            SystemThemeWatcher.Watch(this);
-            InitializeComponent();
-            this.WhenActivated(d =>
-            {
-                this.NavigateToView(typeof(MainViewModel));
-            });
-        }
+        SystemThemeWatcher.Watch(this);
+        InitializeComponent();
+        this.WhenActivated(d => this.NavigateToView<MainViewModel>());
     }
 }

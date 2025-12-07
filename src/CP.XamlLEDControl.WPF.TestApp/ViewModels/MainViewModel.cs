@@ -2,12 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics;
-using System.Reactive;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using CrissCross;
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 
 namespace CP.XamlLEDControl.WPF;
 
@@ -15,91 +14,25 @@ namespace CP.XamlLEDControl.WPF;
 /// MainViewModel.
 /// </summary>
 /// <seealso cref="RxObject" />
-public class MainViewModel : RxObject
+public partial class MainViewModel : RxObject
 {
+    [Reactive]
     private bool _isTrue;
+    [Reactive]
     private bool _clusterIsTrue;
+    [Reactive]
     private bool _isChecked;
+    [Reactive]
     private int _activeLed;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainViewModel"/> class.
     /// </summary>
     public MainViewModel() =>
-        this.BuildComplete(() =>
-        {
-            ToggleCommand = ReactiveCommand.Create(() =>
-                            {
-                                IsTrue = !IsTrue;
-                                if (IsChecked)
-                                {
-                                    ClusterIsTrue = !ClusterIsTrue;
-                                }
-                                else
-                                {
-                                    ClusterIsTrue = false;
-                                    ActiveLed++;
-                                    if (ActiveLed > 4)
-                                    {
-                                        ActiveLed = 0;
-                                    }
-                                }
-                            });
-            Observable.Interval(TimeSpan.FromSeconds(1))
+        this.BuildComplete(() => Observable.Interval(TimeSpan.FromSeconds(1))
             .ObserveOn(RxApp.MainThreadScheduler)
-            .Subscribe(_ =>
-            {
-                IsTrue = !IsTrue;
-            }).DisposeWith(Disposables);
-        });
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is true.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is true; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsTrue
-    {
-        get => _isTrue;
-        set => this.RaiseAndSetIfChanged(ref _isTrue, value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is true.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is true; otherwise, <c>false</c>.
-    /// </value>
-    public bool ClusterIsTrue
-    {
-        get => _clusterIsTrue;
-        set => this.RaiseAndSetIfChanged(ref _clusterIsTrue, value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is checked.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is checked; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsChecked
-    {
-        get => _isChecked;
-        set => this.RaiseAndSetIfChanged(ref _isChecked, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the active led.
-    /// </summary>
-    /// <value>
-    /// The active led.
-    /// </value>
-    public int ActiveLed
-    {
-        get => _activeLed;
-        set => this.RaiseAndSetIfChanged(ref _activeLed, value);
-    }
+            .Subscribe(_ => Toggle())
+            .DisposeWith(Disposables));
 
     /// <summary>
     /// Gets the toggle command.
@@ -107,5 +40,22 @@ public class MainViewModel : RxObject
     /// <value>
     /// The toggle command.
     /// </value>
-    public ReactiveCommand<Unit, Unit>? ToggleCommand { get; private set; }
+    [ReactiveCommand]
+    private void Toggle()
+    {
+        IsTrue = !IsTrue;
+        if (IsChecked)
+        {
+            ClusterIsTrue = !ClusterIsTrue;
+        }
+        else
+        {
+            ClusterIsTrue = false;
+            ActiveLed++;
+            if (ActiveLed > 4)
+            {
+                ActiveLed = 0;
+            }
+        }
+    }
 }

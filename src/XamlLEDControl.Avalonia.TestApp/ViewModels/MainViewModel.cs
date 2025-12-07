@@ -6,7 +6,7 @@ namespace XamlLEDControl.Avalonia.TestApp.ViewModels;
 /// <summary>
 /// MainViewModel.
 /// </summary>
-/// <seealso cref="XamlLEDControl.Avalonia.TestApp.ViewModels.ViewModelBase" />
+/// <seealso cref="ViewModelBase" />
 public class MainViewModel : ViewModelBase
 {
     /// <summary>

@@ -8,7 +8,5 @@ namespace XamlLEDControl.Avalonia.TestApp.ViewModels;
 /// <summary>
 /// ViewModelBase.
 /// </summary>
-/// <seealso cref="ReactiveUI.ReactiveObject" />
-public class ViewModelBase : ReactiveObject
-{
-}
+/// <seealso cref="ReactiveObject" />
+public class ViewModelBase : ReactiveObject;
